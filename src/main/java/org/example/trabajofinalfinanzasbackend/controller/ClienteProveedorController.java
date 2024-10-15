@@ -29,7 +29,15 @@ public class ClienteProveedorController {
 
     }
 
-    @GetMapping("/listar")
+    @GetMapping("/listarcliente")
+    public List<ClienteProveedorDto> listarCliente(@RequestParam Integer id){
+        ModelMapper modelMapper = new ModelMapper();
+        ClienteProveedor clienteProveedor=clienteProveedorService.clientePorUsuario(id);
+        return Arrays.asList(modelMapper.map(clienteProveedor, ClienteProveedorDto.class));
+    }
+
+
+    @GetMapping("/listarclientes")
     public List<ClienteProveedorDto> listar()  {
         ModelMapper modelMapper = new ModelMapper();
         List<ClienteProveedor> clienteProveedors=clienteProveedorService.listarClientes();

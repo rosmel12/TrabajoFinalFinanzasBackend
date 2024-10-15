@@ -7,6 +7,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 @RestController
 @RequestMapping("/tasaefectiva")
 @CrossOrigin()
@@ -23,5 +26,11 @@ public class TasaEfectivaController {
         } catch(Exception e) {
             throw new Exception("Error al insertar tasa efectiva");
         }
+    }
+    @GetMapping("/listartasa")
+    public List<TasaEfectivaDto> listartasa() {
+        ModelMapper modelMapper = new ModelMapper();
+        List<TasaEfectiva> tasaEfectivas=tasaEfectivaService.listarTasaEfectivas();
+        return Arrays.asList(modelMapper.map(tasaEfectivas, TasaEfectivaDto[].class));
     }
 }

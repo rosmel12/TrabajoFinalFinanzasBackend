@@ -5,11 +5,7 @@ import org.example.trabajofinalfinanzasbackend.model.Factura;
 import org.example.trabajofinalfinanzasbackend.servicesinterfaces.FacturaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -30,13 +26,9 @@ public class FacturaController {
         }
     }
 
-    @GetMapping("/listar")
-    public ResponseEntity<List<Factura>> listar()  {
-       /* ModelMapper modelMapper = new ModelMapper();
-        List<Factura> facturas = facturaService.listarFacturas();
-        return Arrays.asList(modelMapper.map(facturas, FacturaDto[].class));
-    */
-     return new ResponseEntity<>(facturaService.listarFacturas(), HttpStatus.OK);
+    @GetMapping("/listarfacturascliente")
+    public List<FacturaDto> listarFacturaCliente(@RequestParam String ruc){
+        return facturaService.listarFacturasCliente(ruc);
     }
 
 }

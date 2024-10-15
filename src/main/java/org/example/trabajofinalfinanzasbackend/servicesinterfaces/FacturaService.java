@@ -10,6 +10,7 @@ import org.example.trabajofinalfinanzasbackend.repositories.FacturaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -36,7 +37,15 @@ public class FacturaService {
         return "no creo la factura";
     }
 
-    public List<Factura> listarFacturas() {
-        return facturaRepository.findAll();
+    public List<FacturaDto> listarFacturasCliente(String ruc) {
+        List<Factura> facturas=facturaRepository.listarFacturasCliente(ruc);
+        List<FacturaDto> facturaDtos=new ArrayList<>();
+        for (Factura factura : facturas) {
+            FacturaDto facturaDto = new FacturaDto(factura.getId(),factura.getNumero(),factura.getMontoTotal(),
+                    factura.getMontoTotalIgv(),factura.getMoneda(),factura.getFechaEmision(),factura.getFechaVencimiento(),
+                    factura.getProveedorFactura().getRuc(),factura.getDeudorFactura().getRuc());
+            facturaDtos.add(facturaDto);
+        }
+        return facturaDtos ;
     }
 }

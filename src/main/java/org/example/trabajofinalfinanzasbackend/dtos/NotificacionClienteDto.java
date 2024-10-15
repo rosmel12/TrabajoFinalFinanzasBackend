@@ -12,5 +12,6 @@ import lombok.Setter;
 public class NotificacionClienteDto {
     private Integer id;
     private String mensaje;
+    private Boolean leido;
     private Integer idOperacionFactoring;
 }

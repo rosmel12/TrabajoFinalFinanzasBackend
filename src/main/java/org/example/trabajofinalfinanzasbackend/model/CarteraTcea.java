@@ -18,6 +18,9 @@ public class CarteraTcea {
     @Column(name = "tcea", nullable = false)
     private double tcea;
 
+    @Column(name = "monto", nullable = false)
+    private double monto;
+
     @Column(name = "fecha", nullable = false)
     private Date fecha;
 

@@ -7,6 +7,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 @RestController
 @RequestMapping("/clientedeudor")
 @CrossOrigin()
@@ -22,7 +25,13 @@ public class ClienteDeudorController {
         } catch(Exception e) {
             throw new Exception("Error al insertar cliente");
         }
+    }
 
+    @GetMapping("/listar")
+    public List<ClienteDeudorDto> listarClienteDeudor(){
+        ModelMapper modelMapper = new ModelMapper();
+        List<ClienteDeudor> clienteDeudors=clienteDeudorService.listarClienteDeudor();
+        return Arrays.asList(modelMapper.map(clienteDeudors, ClienteDeudorDto[].class));
     }
 
 }

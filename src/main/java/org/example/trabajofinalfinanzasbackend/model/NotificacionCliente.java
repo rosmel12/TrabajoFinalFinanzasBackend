@@ -16,6 +16,9 @@ public class NotificacionCliente {
     @Column(name = "mensaje", nullable = false)
     private String mensaje;
 
+    @Column(name = "leido", nullable = false)
+    private Boolean leido;
+
     //relacion operacion_Factoring
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="idOperacionFactoring",nullable=false )

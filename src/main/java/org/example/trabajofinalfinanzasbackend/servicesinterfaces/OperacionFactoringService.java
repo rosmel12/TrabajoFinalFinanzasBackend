@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class OperacionFactoringService {
@@ -19,6 +20,8 @@ private OperacionFactoringRepository operacionFactoringRepository;
 private PeriodoRepository periodoRepository;
 @Autowired
 private TceaOperacionService tceaOperacionService;
+@Autowired
+private NotificacionClienteService notificacionClienteService;
 
 private int diasFactura=0;
 private double tep=0.0;
@@ -48,7 +51,8 @@ public String insertarOperacion() {
     operacionFactoring.setDescuentoOperacion(descuento);
     operacionFactoring= operacionFactoringRepository.save(operacionFactoring);
     tceaOperacionService.IngresarTceaOperacion(this.diasFactura,this.factura.getMontoTotal(),operacionFactoring);
-    return"Dias:"+diasFactura+" montoDecsuento:"+this.montoDescuento+" tasaOperacion:"+this.tep;
+    notificacionClienteService.enviarNotificacionCliente(operacionFactoring);
+    return "Se ingreso correctamente la operacion";
 }
 
 ///recepcionmos los dato creados
@@ -74,10 +78,9 @@ this.diasFactura =(int) ChronoUnit.DAYS.between(fechaInicio, fechaFin);
 
 ///operaciones de calculo
 private double calcularMontoDescuentoPago() {
-double montoSinIgv=this.factura.getMontoTotal();
-this.montoDescuento =montoSinIgv*calcularTasaDescuento();
-double valorneto = montoSinIgv - this.montoDescuento;
-return valorneto-(this.comision.getEnvio()+ this.comision.getSeguro()+ (montoSinIgv* this.comision.getRetencion()));
+double montoDescuentoTasa = this.factura.getMontoTotal() * calcularTasaDescuento();
+this.montoDescuento = montoDescuentoTasa + this.comision.getEnvio() + this.comision.getSeguro() + ( this.factura.getMontoTotal() * this.comision.getRetencion() );
+return this.factura.getMontoTotal() - this.montoDescuento;
 }
 
 ///Calculo TEP
@@ -95,9 +98,18 @@ private void convertirTasaNominalEfectiva() {
   this.tep=(Math.pow(1+(this.tasaNominal.getTasaInteres()/m),n))-1;
 }
 
-//Calculo TEPdescuento
-private double calcularTasaDescuento(){
-    double tepDescuento=(this.tep)/(1+this.tep);
-    return tepDescuento;
+///Calculo TEPdescuento
+private double calcularTasaDescuento(){ return (this.tep)/(1+this.tep);}
+
+///listar operacion por factura
+public OperacionFactoring listaroperacionPorFactura(Integer idFactura) {
+    return operacionFactoringRepository.operacionFactura(idFactura);
 }
+
+///listar operacion por cliente
+public List<OperacionFactoring> listaroperacionPorCliente(String ruc) {
+    return operacionFactoringRepository.operacionesCliente(ruc);
+}
+
+
 }

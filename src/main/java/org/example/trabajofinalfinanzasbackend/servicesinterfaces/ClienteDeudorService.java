@@ -5,6 +5,8 @@ import org.example.trabajofinalfinanzasbackend.repositories.ClienteDeudorReposit
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ClienteDeudorService {
     @Autowired
@@ -17,5 +19,9 @@ public class ClienteDeudorService {
             return "se crea el cliente  deudor";
         }
         return "no se crea el cliente deudor";
+    }
+
+    public List<ClienteDeudor> listarClienteDeudor() {
+        return clienteDeudorRepository.findAll();
     }
 }

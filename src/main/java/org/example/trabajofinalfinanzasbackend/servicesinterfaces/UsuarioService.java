@@ -22,6 +22,9 @@ public class UsuarioService {
         }
        return "usuario existente";
     }
+    public Usuario buscarUsuario(String usuario) {
+        return usuarioRepository.findUsuarioByUsuario(usuario);
+    }
 
     public List<Usuario> listarUsuarios() {
         return usuarioRepository.findAll();
