@@ -20,7 +20,7 @@ public class TceaOperacionService {
         return "la tcea se agrego correctmente";
     }
     private double calcularTceaOperacion(int DiasOperacion, double MontoOperacionPagado,double MontoTotal) {
-        double tceaOperacion = (Math.pow(MontoOperacionPagado/MontoTotal,360/DiasOperacion))-1;
+        double tceaOperacion = (Math.pow(MontoOperacionPagado/MontoTotal, (double) 360/DiasOperacion))-1;
         return tceaOperacion;
     }
 }
