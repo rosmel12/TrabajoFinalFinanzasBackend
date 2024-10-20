@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("/tasaefectiva")
+@RequestMapping("/quma/tasaefectiva")
 @CrossOrigin()
 public class TasaEfectivaController {
     @Autowired
@@ -27,7 +27,7 @@ public class TasaEfectivaController {
             throw new Exception("Error al insertar tasa efectiva");
         }
     }
-    @GetMapping("/listartasa")
+    @GetMapping("/usuario/listar")
     public List<TasaEfectivaDto> listartasa() {
         ModelMapper modelMapper = new ModelMapper();
         List<TasaEfectiva> tasaEfectivas=tasaEfectivaService.listarTasaEfectivas();

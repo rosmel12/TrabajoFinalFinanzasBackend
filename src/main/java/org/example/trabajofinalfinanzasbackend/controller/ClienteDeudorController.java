@@ -11,12 +11,12 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("/clientedeudor")
+@RequestMapping("/quma/clientedeudor")
 @CrossOrigin()
 public class ClienteDeudorController {
     @Autowired
     private ClienteDeudorService clienteDeudorService;
-    @PostMapping("/insertar")
+    @PostMapping("/usuario/insertar")
     public String createClienteDeudor(@RequestBody ClienteDeudorDto clienteDeudorDto) throws Exception {
         try {
             ModelMapper modelMapper = new ModelMapper();
@@ -27,7 +27,7 @@ public class ClienteDeudorController {
         }
     }
 
-    @GetMapping("/listar")
+    @GetMapping("/usuario/listar")
     public List<ClienteDeudorDto> listarClienteDeudor(){
         ModelMapper modelMapper = new ModelMapper();
         List<ClienteDeudor> clienteDeudors=clienteDeudorService.listarClienteDeudor();

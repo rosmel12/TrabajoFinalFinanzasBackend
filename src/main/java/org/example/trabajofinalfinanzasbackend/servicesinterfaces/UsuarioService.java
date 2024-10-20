@@ -3,6 +3,8 @@ package org.example.trabajofinalfinanzasbackend.servicesinterfaces;
 import org.example.trabajofinalfinanzasbackend.model.Usuario;
 import org.example.trabajofinalfinanzasbackend.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,17 +15,18 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     public String agregarUsuario(Usuario usuario) {
-        Usuario usuarioComprobar=usuarioRepository.findUsuarioByUsuario(usuario.getUsuario());
+        Usuario usuarioComprobar=usuarioRepository.findUsuarioByUsername(usuario.getUsername());
         if(usuarioComprobar==null){
-            String pass=usuario.getContrasena();
-            usuario.setContrasena(pass);
+            PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String encodedPassword = passwordEncoder.encode(usuario.getPassword());
+            usuario.setPassword(encodedPassword);
            usuarioRepository.save(usuario);
            return "Usuario agregado exitosamente";
         }
        return "usuario existente";
     }
     public Usuario buscarUsuario(String usuario) {
-        return usuarioRepository.findUsuarioByUsuario(usuario);
+        return usuarioRepository.findUsuarioByUsername(usuario);
     }
 
     public List<Usuario> listarUsuarios() {

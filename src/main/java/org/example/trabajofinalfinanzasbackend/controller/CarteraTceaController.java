@@ -1,23 +1,32 @@
 package org.example.trabajofinalfinanzasbackend.controller;
 
+import org.example.trabajofinalfinanzasbackend.dtos.CarteraTceaDto;
+import org.example.trabajofinalfinanzasbackend.model.CarteraTcea;
 import org.example.trabajofinalfinanzasbackend.servicesinterfaces.CarteraTceaService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 @RestController
-@RequestMapping("/carteratcea")
+@RequestMapping("/quma/carteratcea")
 @CrossOrigin()
 public class CarteraTceaController {
     @Autowired
     private CarteraTceaService carteraTceaService;
 
-    @PostMapping("/insertar")
-    public String createCarteraTcea() throws Exception {
-        try {
-            return "";
-        } catch(Exception e) {
-            throw new Exception("Error al insertar cartera tcea");
-        }
+  @GetMapping("/usuario/insertar")
+    public String insertar(@RequestParam String ruc) {
+      return carteraTceaService.insertarCarteraTcea(ruc);
+  }
 
-    }
+  @GetMapping("/usuario/listar")
+    public List<CarteraTceaDto> listar(@RequestParam String ruc) {
+      ModelMapper modelMapper = new ModelMapper();
+      List<CarteraTcea> carteraTceas=carteraTceaService.getCarteraTcea(ruc);
+      return Arrays.asList(modelMapper.map(carteraTceas, CarteraTceaDto[].class));
+  }
+
 }

@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("/tasanominal")
+@RequestMapping("/quma/tasanominal")
 @CrossOrigin()
 public class TasaNominalController {
     @Autowired
@@ -30,7 +30,7 @@ public class TasaNominalController {
         }
     }
 
-    @GetMapping("/listartasa")
+    @GetMapping("/usuario/listar")
     public List<TasaNominalDto> listarTasaNominal(){
         ModelMapper modelMapper = new ModelMapper();
         List<TasaNominal> tasaNominals=tasaNominalService.listarTasaNominal();

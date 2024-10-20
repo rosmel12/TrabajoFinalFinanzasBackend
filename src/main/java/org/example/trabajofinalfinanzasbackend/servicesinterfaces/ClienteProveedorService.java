@@ -6,7 +6,6 @@ import org.example.trabajofinalfinanzasbackend.model.Usuario;
 import org.example.trabajofinalfinanzasbackend.repositories.ClienteProveedorRepository;
 import org.example.trabajofinalfinanzasbackend.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,12 +27,9 @@ public class ClienteProveedorService {
         return "existe un cliente con ese usuario";
     }
 
-    public List<ClienteProveedor> listarClientes() {
-        return clienteProveedorRepository.findAll();
+    public ClienteProveedor clientePorUsuario(Integer idUsuario) {
+        return clienteProveedorRepository.findClienteProveedorByUserClienteId(idUsuario);
     }
 
-    public ClienteProveedor clientePorUsuario(Integer idUsuario) {
-    return clienteProveedorRepository.clienteUsuario(idUsuario);
-    }
 
 }

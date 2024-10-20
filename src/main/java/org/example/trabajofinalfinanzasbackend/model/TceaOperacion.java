@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @Entity
@@ -16,8 +18,8 @@ public class TceaOperacion {
     @Column(name = "tcea", nullable = false)
     private double tcea;
 
-    @Column(name = "comentario", nullable = false)
-    private String comentario;
+    @Column(name = "fecha", nullable = false)
+    private Date fecha;
 
     //relacion operacion_Factoring
     @ManyToOne(fetch = FetchType.LAZY)

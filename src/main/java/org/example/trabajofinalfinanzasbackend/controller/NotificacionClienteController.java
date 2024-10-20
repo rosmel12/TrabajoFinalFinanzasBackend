@@ -11,13 +11,13 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("/notificacion")
+@RequestMapping("/quma/notificacion")
 @CrossOrigin()
 public class NotificacionClienteController {
     @Autowired
     private NotificacionClienteService notificacionClienteService;
 
-    @GetMapping("/notificacioncliente")
+    @GetMapping("/usuario/listar")
     public List<NotificacionClienteDto> listarNotificacionCliente(@RequestParam String ruc) {
         ModelMapper modelMapper = new ModelMapper();
         List<NotificacionCliente> notificacionCliente = notificacionClienteService.listarNotificacionCliente(ruc);

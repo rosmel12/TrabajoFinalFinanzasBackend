@@ -1,23 +1,36 @@
 package org.example.trabajofinalfinanzasbackend.controller;
 
+import org.example.trabajofinalfinanzasbackend.dtos.UserDto;
 import org.example.trabajofinalfinanzasbackend.dtos.UsuarioDto;
 import org.example.trabajofinalfinanzasbackend.model.Usuario;
+import org.example.trabajofinalfinanzasbackend.security.JwtResponse;
+import org.example.trabajofinalfinanzasbackend.security.JwtTokenUtil;
+import org.example.trabajofinalfinanzasbackend.serviceimplements.JwtUserDetailsService;
 import org.example.trabajofinalfinanzasbackend.servicesinterfaces.UsuarioService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.List;
-
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/quma")
 @CrossOrigin()
 public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+    @Autowired
+    private JwtUserDetailsService jwtUserDetailsService;
 
-    @PostMapping("/InsertarUsuario")
+    @PostMapping("/register")
     public String createUsuario(@RequestBody UsuarioDto usuario) throws Exception {
         try {
             ModelMapper modelMapper = new ModelMapper();
@@ -27,10 +40,29 @@ public class UsuarioController {
             throw new Exception("Error al insertar usuario");
         }
     }
-    @GetMapping("/listar")
-    public List<UsuarioDto>listar()  {
+
+    @PostMapping("/login")
+    public ResponseEntity<?> createAuthenticateUser(@RequestBody UserDto user) throws Exception {
+        authenticateUser(user.getUsername(), user.getPassword());
+        final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(user.getUsername());
+        final String token = jwtTokenUtil.generateToken(userDetails);
+        return ResponseEntity.ok(new JwtResponse(token));
+    }
+    private void authenticateUser(String username, String password) throws Exception {
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+        }catch(DisabledException e) {
+            throw new Exception("USER_DISABLED", e);
+        }catch(BadCredentialsException e) {
+            throw new Exception("INVALID_CREDENTIALS", e);
+        }
+
+    }
+
+    @GetMapping("/cliente/usuario/listar")
+    public UsuarioDto usuarioCliente(@RequestBody UserDto user)  {
             ModelMapper modelMapper = new ModelMapper();
-            List<Usuario> usuarios = usuarioService.listarUsuarios();
-            return Arrays.asList(modelMapper.map(usuarios, UsuarioDto[].class));
+            Usuario usuarios = usuarioService.buscarUsuario(user.getUsername());
+            return modelMapper.map(usuarios, UsuarioDto.class)      ;
     }
 }

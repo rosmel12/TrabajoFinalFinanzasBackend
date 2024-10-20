@@ -1,14 +1,13 @@
 package org.example.trabajofinalfinanzasbackend.servicesinterfaces;
 
-import org.example.trabajofinalfinanzasbackend.dtos.TceaOperacionDto;
 import org.example.trabajofinalfinanzasbackend.model.OperacionFactoring;
-import org.example.trabajofinalfinanzasbackend.model.TasaNominal;
 import org.example.trabajofinalfinanzasbackend.model.TceaOperacion;
 import org.example.trabajofinalfinanzasbackend.repositories.TceaOperacionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -19,7 +18,7 @@ public class TceaOperacionService {
     public String IngresarTceaOperacion(int DiasOperacion,double MontoTotal, OperacionFactoring operacionFactoring) {
         TceaOperacion tceaOperacion = new TceaOperacion();
         tceaOperacion.setTcea(calcularTceaOperacion(DiasOperacion,operacionFactoring.getMontoPago(),MontoTotal));
-        tceaOperacion.setComentario("tcea correcto");
+        tceaOperacion.setFecha(new Date());
         tceaOperacion.setTceaOperacionFactoring(operacionFactoring);
         tceaOperacionRepository.save(tceaOperacion);
         return "la tcea se agrego correctmente";

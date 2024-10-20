@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/factura")
+@RequestMapping("/quma/factura")
 @CrossOrigin()
 public class FacturaController {
     @Autowired
     private FacturaService facturaService;
 
-    @PostMapping("/insertar")
+    @PostMapping("/usuario/insertar")
     public String createFactura(@RequestBody FacturaDto facturaDto) throws Exception {
         try {
             ModelMapper modelMapper = new ModelMapper();
@@ -26,7 +26,7 @@ public class FacturaController {
         }
     }
 
-    @GetMapping("/listarfacturascliente")
+    @GetMapping("/usuario/listar")
     public List<FacturaDto> listarFacturaCliente(@RequestParam String ruc){
         return facturaService.listarFacturasCliente(ruc);
     }

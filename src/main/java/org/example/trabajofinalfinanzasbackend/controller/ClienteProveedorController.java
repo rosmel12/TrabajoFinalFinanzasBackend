@@ -11,13 +11,13 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("/clienteproveedor")
+@RequestMapping("/quma/clienteproveedor")
 @CrossOrigin()
 public class ClienteProveedorController {
     @Autowired
     private ClienteProveedorService clienteProveedorService;
 
-    @PostMapping("/insertar")
+    @PostMapping("/usuario/insertar")
     public String createClienteProveeor(@RequestBody ClienteProveedorDto clienteProveedorDto) throws Exception {
         try {
             ModelMapper modelMapper = new ModelMapper();
@@ -29,18 +29,11 @@ public class ClienteProveedorController {
 
     }
 
-    @GetMapping("/listarcliente")
-    public List<ClienteProveedorDto> listarCliente(@RequestParam Integer id){
+    @GetMapping("/usuario/cliente")
+    public ClienteProveedorDto listarCliente(@RequestParam Integer id){
         ModelMapper modelMapper = new ModelMapper();
         ClienteProveedor clienteProveedor=clienteProveedorService.clientePorUsuario(id);
-        return Arrays.asList(modelMapper.map(clienteProveedor, ClienteProveedorDto.class));
+        return modelMapper.map(clienteProveedor, ClienteProveedorDto.class);
     }
 
-
-    @GetMapping("/listarclientes")
-    public List<ClienteProveedorDto> listar()  {
-        ModelMapper modelMapper = new ModelMapper();
-        List<ClienteProveedor> clienteProveedors=clienteProveedorService.listarClientes();
-        return Arrays.asList(modelMapper.map(clienteProveedors, ClienteProveedorDto[].class));
-    }
 }

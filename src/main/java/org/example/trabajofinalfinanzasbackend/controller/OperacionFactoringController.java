@@ -7,30 +7,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("/operacionfactoring")
+@RequestMapping("/quma/operacionfactoring")
 @CrossOrigin()
 public class OperacionFactoringController {
     @Autowired
     private OperacionFactoringService operacionFactoringService;
 
-    @GetMapping("/insertar")
+    @GetMapping("/usuario/insertar")
     public String insertarOperacion() {
         return  operacionFactoringService.insertarOperacion();
     }
 
-    @GetMapping("/operacionfactura")
+    @GetMapping("/usuario/listar")
     public OperacionFactoringDto listarOperacionFactura(@RequestParam Integer idFactura) {
      ModelMapper modelMapper = new ModelMapper();
      OperacionFactoring operacionFactoring=operacionFactoringService.listaroperacionPorFactura(idFactura);
      return modelMapper.map(operacionFactoring, OperacionFactoringDto.class);
     }
 
-    @GetMapping("/operacionesusuario")
+    @GetMapping("/usuario/operacionesusuario")
     public List<OperacionFactoringDto> listarOperacionesUsuario(@RequestParam String ruc){
         ModelMapper modelMapper = new ModelMapper();
         List<OperacionFactoring> operacionFactorings=operacionFactoringService.listaroperacionPorCliente(ruc);

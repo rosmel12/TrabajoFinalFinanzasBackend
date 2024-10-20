@@ -12,13 +12,13 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("/tceaoperacion")
+@RequestMapping("/quma/tceaoperacion")
 @CrossOrigin()
 public class TceaOperacionController {
     @Autowired
     private TceaOperacionService tceaOperacionService;
 
-    @GetMapping("/listartceausuario")
+    @GetMapping("/usuario/listar")
     public List<TceaOperacionDto> listarTceaOperacion(@RequestParam String ruc) {
         ModelMapper modelMapper = new ModelMapper();
         List<TceaOperacion> tceaOperacions=tceaOperacionService.listarTceaOperacionUsuario(ruc);

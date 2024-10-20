@@ -11,13 +11,13 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("/descuento")
+@RequestMapping("/quma/descuento")
 @CrossOrigin()
 public class DescuentoController {
     @Autowired
     private DescuentoService descuentoService;
 
-    @PostMapping("/insertar")
+    @PostMapping("/usuario/insertar")
     public String createDescuento(@RequestBody DescuentoDto descuentoDto) throws Exception {
         try {
             ModelMapper modelMapper = new ModelMapper();
@@ -29,7 +29,7 @@ public class DescuentoController {
 
     }
 
-    @GetMapping("/listardescuento")
+    @GetMapping("/usuario/listar")
     public List<DescuentoDto> listarDescuento(){
         ModelMapper modelMapper = new ModelMapper();
         List<Descuento> descuentos = descuentoService.listarDescuentos();

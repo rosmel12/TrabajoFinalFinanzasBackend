@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -12,5 +14,5 @@ import lombok.Setter;
 public class TceaOperacionDto {
     private Integer id;
     private double tcea;
-    private String comentario;
+    private Date fecha;
 }
