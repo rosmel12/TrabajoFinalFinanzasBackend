@@ -16,7 +16,7 @@ public class UsuarioService {
         if(usuarioComprobar==null){
             String pass=usuario.getPassword();
             usuario.setPassword(pass);
-           usuarioRepository.save(usuario);
+           usuario=usuarioRepository.save(usuario);
            return usuario.getId();
         }
        return null;
