@@ -31,7 +31,7 @@ public class UsuarioController {
     private JwtUserDetailsService jwtUserDetailsService;
 
     @PostMapping("/register")
-    public String createUsuario(@RequestBody UsuarioDto usuario) throws Exception {
+    public Integer createUsuario(@RequestBody UsuarioDto usuario) throws Exception {
         try {
             ModelMapper modelMapper = new ModelMapper();
             Usuario user = modelMapper.map(usuario, Usuario.class);
@@ -59,10 +59,10 @@ public class UsuarioController {
 
     }
 
-    @GetMapping("/cliente/usuario/id")
-    public UsuarioDto usuarioCliente(@RequestParam Integer id)  {
+    @GetMapping("/cliente/usuario/id/{username}")
+    public UsuarioDto usuarioCliente(@PathVariable String username){
             ModelMapper modelMapper = new ModelMapper();
-            Usuario usuarios = usuarioService.buscarUsuario(id);
+            Usuario usuarios = usuarioService.buscarUsuario(username);
             return modelMapper.map(usuarios, UsuarioDto.class)      ;
     }
 }

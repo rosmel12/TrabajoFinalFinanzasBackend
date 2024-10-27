@@ -11,18 +11,18 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public String agregarUsuario(Usuario usuario) {
+    public Integer agregarUsuario(Usuario usuario) {
         Usuario usuarioComprobar=usuarioRepository.findUsuarioByUsername(usuario.getUsername());
         if(usuarioComprobar==null){
             String pass=usuario.getPassword();
             usuario.setPassword(pass);
            usuarioRepository.save(usuario);
-           return "Usuario agregado exitosamente";
+           return usuario.getId();
         }
-       return "usuario existente";
+       return null;
     }
-    public Usuario buscarUsuario(Integer id) {
-        return usuarioRepository.findById(id).orElse(null);
+    public Usuario buscarUsuario(String username) {
+        return usuarioRepository.findUsuarioByUsername(username);
     }
 
 }
