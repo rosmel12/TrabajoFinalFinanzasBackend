@@ -7,29 +7,25 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public String agregarUsuario(Usuario usuario) {
+    public Integer agregarUsuario(Usuario usuario) {
         Usuario usuarioComprobar=usuarioRepository.findUsuarioByUsername(usuario.getUsername());
         if(usuarioComprobar==null){
             PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             String encodedPassword = passwordEncoder.encode(usuario.getPassword());
             usuario.setPassword(encodedPassword);
            usuarioRepository.save(usuario);
-           return "Usuario agregado exitosamente";
+           return usuario.getId();
         }
-       return "usuario existente";
+       return null;
     }
-    public Usuario buscarUsuario(String usuario) {
-        return usuarioRepository.findUsuarioByUsername(usuario);
+    public Usuario buscarUsuario(Integer id) {
+        return usuarioRepository.findById(id).orElse(null);
     }
 
-    public List<Usuario> listarUsuarios() {
-        return usuarioRepository.findAll();
-    }
+
 }

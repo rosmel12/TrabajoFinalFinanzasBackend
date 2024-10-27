@@ -50,7 +50,8 @@ public class JwtTokenUtil implements Serializable {
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("", "");
-        claims.put("",userDetails.getAuthorities().stream().map(r->r.getAuthority()).collect(Collectors.joining()));
+        claims.put("role",userDetails.getAuthorities().stream().map(r->r.getAuthority()).collect(Collectors.joining()));
+        claims.put("id",userDetails.getUsername());
         return doGenerateToken(claims, userDetails.getUsername());
     }
     // compactación del JWT en una cadena segura para URL
