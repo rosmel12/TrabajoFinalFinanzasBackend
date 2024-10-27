@@ -31,7 +31,7 @@ public class UsuarioController {
     private JwtUserDetailsService jwtUserDetailsService;
 
     @PostMapping("/register")
-    public Integer createUsuario(@RequestBody UsuarioDto usuario) throws Exception {
+    public String createUsuario(@RequestBody UsuarioDto usuario) throws Exception {
         try {
             ModelMapper modelMapper = new ModelMapper();
             Usuario user = modelMapper.map(usuario, Usuario.class);
@@ -60,7 +60,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/cliente/usuario/id")
-    public UsuarioDto usuarioCliente(@RequestParam Integer id){
+    public UsuarioDto usuarioCliente(@RequestParam Integer id)  {
             ModelMapper modelMapper = new ModelMapper();
             Usuario usuarios = usuarioService.buscarUsuario(id);
             return modelMapper.map(usuarios, UsuarioDto.class)      ;
