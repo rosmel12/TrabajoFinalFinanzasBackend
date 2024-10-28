@@ -4,8 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -29,10 +28,10 @@ public class Factura {
     private String moneda;
 
     @Column(name = "fechaEmision", nullable = false)
-    private Date fechaEmision;
+    private LocalDate fechaEmision;
 
     @Column(name = "fechaVencimiento", nullable = false)
-    private Date fechaVencimiento;
+    private LocalDate fechaVencimiento;
 
     //relacion-Cliente_proveedor
     @ManyToOne(fetch = FetchType.LAZY)

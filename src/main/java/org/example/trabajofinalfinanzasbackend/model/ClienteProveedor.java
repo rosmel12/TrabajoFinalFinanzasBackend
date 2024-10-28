@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -30,7 +30,7 @@ public class ClienteProveedor {
     private String correoEmpresa;
 
     @Column(name = "fechaRegistro", nullable = false)
-    private Date fechaRegistro;
+    private LocalDate fechaRegistro;
 
     //relacion-usuario
     @OneToOne

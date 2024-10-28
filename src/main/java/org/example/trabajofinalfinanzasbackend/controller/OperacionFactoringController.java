@@ -4,7 +4,6 @@ import org.example.trabajofinalfinanzasbackend.model.OperacionFactoring;
 import org.example.trabajofinalfinanzasbackend.servicesinterfaces.OperacionFactoringService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -18,7 +17,7 @@ public class OperacionFactoringController {
     private OperacionFactoringService operacionFactoringService;
 
     @GetMapping("/usuario/insertar")
-    public String insertarOperacion() {
+    public Integer insertarOperacion() {
         return  operacionFactoringService.insertarOperacion();
     }
 

@@ -3,8 +3,7 @@ package org.example.trabajofinalfinanzasbackend.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -19,7 +18,7 @@ public class TceaOperacion {
     private double tcea;
 
     @Column(name = "fecha", nullable = false)
-    private Date fecha;
+    private LocalDateTime fecha;
 
     //relacion operacion_Factoring
     @ManyToOne(fetch = FetchType.LAZY)

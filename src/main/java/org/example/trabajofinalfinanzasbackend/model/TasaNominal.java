@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -26,10 +26,10 @@ public class TasaNominal {
     private String capitalizable;
 
     @Column(name = "fechaInicio", nullable = false)
-    private Date fechaInicio;
+    private LocalDateTime fechaInicio;
 
     @Column(name = "fechaFin", nullable = false)
-    private Date fechaFin;
+    private LocalDateTime fechaFin;
 
     //relacion descuento
     @OneToMany(mappedBy = "tasaNominalDescuento",fetch = FetchType.LAZY,cascade = CascadeType.ALL)

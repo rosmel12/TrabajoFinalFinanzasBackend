@@ -29,10 +29,10 @@ public class ClienteProveedorController {
 
     }
 
-    @GetMapping("/usuario/cliente")
-    public ClienteProveedorDto listarCliente(@RequestParam Integer id){
+    @GetMapping("/usuario/cliente/{username}")
+    public ClienteProveedorDto listarCliente(@PathVariable String username){
         ModelMapper modelMapper = new ModelMapper();
-        ClienteProveedor clienteProveedor=clienteProveedorService.clientePorUsuario(id);
+        ClienteProveedor clienteProveedor=clienteProveedorService.clientePorUsuario(username);
         return modelMapper.map(clienteProveedor, ClienteProveedorDto.class);
     }
 

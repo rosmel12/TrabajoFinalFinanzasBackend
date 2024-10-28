@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ClienteProveedorRepository extends JpaRepository<ClienteProveedor, String> {
-   ClienteProveedor findClienteProveedorByUserClienteId(Integer id);
-
+   ClienteProveedor findClienteProveedorByUserCliente_Username(String username);
 }

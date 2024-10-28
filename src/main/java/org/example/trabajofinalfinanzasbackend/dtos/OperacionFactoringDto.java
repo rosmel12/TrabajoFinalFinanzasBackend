@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 
 @Getter
@@ -14,7 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class OperacionFactoringDto {
     private Integer id;
-    private Date fechaOperacion;
+    private LocalDateTime fechaOperacion;
     private double tasaInteresAplicada;
     private double montoDescuento;
     private double montoPago;

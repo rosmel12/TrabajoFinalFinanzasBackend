@@ -1,11 +1,14 @@
 package org.example.trabajofinalfinanzasbackend.controller;
 
 import org.example.trabajofinalfinanzasbackend.dtos.FacturaDto;
+import org.example.trabajofinalfinanzasbackend.dtos.TasaNominalDto;
 import org.example.trabajofinalfinanzasbackend.model.Factura;
 import org.example.trabajofinalfinanzasbackend.servicesinterfaces.FacturaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -26,9 +29,15 @@ public class FacturaController {
         }
     }
 
-    @GetMapping("/usuario/listar")
-    public List<FacturaDto> listarFacturaCliente(@RequestParam String ruc){
-        return facturaService.listarFacturasCliente(ruc);
+    @GetMapping("/usuario/listar/{ruc}")
+    public List<FacturaDto> listarFacturaCliente(@PathVariable String ruc) throws Exception {
+        try {
+            ModelMapper modelMapper = new ModelMapper();
+            List<Factura> facturas = facturaService.listarFacturasCliente("1");
+            return Arrays.asList(modelMapper.map(facturas, FacturaDto[].class));
+        } catch(Exception e) {
+            throw new Exception("Error al insertar factura");
+        }
     }
 
 }

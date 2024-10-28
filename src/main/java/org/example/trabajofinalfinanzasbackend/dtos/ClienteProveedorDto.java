@@ -5,8 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -18,6 +17,6 @@ public class ClienteProveedorDto {
     private String direccionEmpresa;
     private String telefonoEmpresa;
     private String correoEmpresa;
-    private Date fechaRegistro;
+    private LocalDate fechaRegistro;
     private Integer idUsuario;
 }

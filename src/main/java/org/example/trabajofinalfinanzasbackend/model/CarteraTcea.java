@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -22,7 +22,7 @@ public class CarteraTcea {
     private double monto;
 
     @Column(name = "fecha", nullable = false)
-    private Date fecha;
+    private LocalDateTime fecha;
 
     //relacion-cliente_proveeddor
     @ManyToOne(fetch = FetchType.LAZY)

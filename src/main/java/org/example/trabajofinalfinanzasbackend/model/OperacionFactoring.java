@@ -3,7 +3,8 @@ package org.example.trabajofinalfinanzasbackend.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import java.util.Date;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -16,7 +17,7 @@ public class OperacionFactoring {
     private Integer id;
 
     @Column(name = "fechaOperacion", nullable = false)
-    private Date fechaOperacion;
+    private LocalDateTime fechaOperacion;
 
     @Column(name = "tasaInteresAplicada", nullable = false)
     private double tasaInteresAplicada;

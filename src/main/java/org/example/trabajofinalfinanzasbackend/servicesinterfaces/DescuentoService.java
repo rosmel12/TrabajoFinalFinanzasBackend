@@ -12,6 +12,7 @@ import org.example.trabajofinalfinanzasbackend.repositories.TasaNominalRepositor
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -27,6 +28,7 @@ public class DescuentoService {
     private TasaEfectivaRepository tasaEfectivaRepository;
     @Autowired
     private OperacionFactoringService operacionFactoringService;
+
     public String insertDescuento(DescuentoDto descuentoDto, Descuento descuento) {
         Comision comision =comisionRepository.findById(descuentoDto.getIdComision()).orElse(null) ;
         TasaNominal tasaNominal=tasaNominalRepository.findById(descuentoDto.getIdTasaNominal()).orElse(null) ;
@@ -41,6 +43,7 @@ public class DescuentoService {
        //verificar una tasa
        if(tasaNominal!=null && tasaEfectiva==null) {
             descuento.setTasaNominalDescuento(tasaNominal);
+            descuento.setFecha(LocalDateTime.now());
             descuento.setTasaEfectivaDescuento(null);
            descuento= descuentoRepository.save(descuento);
            operacionFactoringService.recepcionarDescuento(descuento);
@@ -48,6 +51,7 @@ public class DescuentoService {
        }else if(  tasaEfectiva !=null && tasaNominal==null) {
             descuento.setTasaEfectivaDescuento(tasaEfectiva);
             descuento.setTasaNominalDescuento(null);
+           descuento.setFecha(LocalDateTime.now());
            descuento= descuentoRepository.save(descuento);
            operacionFactoringService.recepcionarDescuento(descuento);
            return "descuento agregado con tasa efectiva";

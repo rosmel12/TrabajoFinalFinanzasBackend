@@ -5,6 +5,8 @@ import org.example.trabajofinalfinanzasbackend.repositories.TasaEfectivaReposito
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,6 +20,14 @@ public class TasaEfectivaService {
     }
 
     public List<TasaEfectiva> listarTasaEfectivas() {
-        return tasaEfectivaRepository.findAll();
+        List<TasaEfectiva> tasaEfectivasAux = tasaEfectivaRepository.findAll();
+        List<TasaEfectiva> tasaEfectivas = new ArrayList<>();
+        for (TasaEfectiva tasaEfectiva : tasaEfectivasAux) {
+            if(tasaEfectiva.getFechaInicio().isBefore(LocalDateTime.now()) && tasaEfectiva.getFechaFin().isAfter(LocalDateTime.now()) ){
+                tasaEfectivas.add(tasaEfectiva);
+            }
+        }
+
+        return tasaEfectivas;
     }
 }

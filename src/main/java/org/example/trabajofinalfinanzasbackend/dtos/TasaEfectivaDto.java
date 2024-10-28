@@ -5,8 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -16,6 +15,6 @@ public class TasaEfectivaDto {
     private Integer id;
     private double tasaInteres;
     private String plazo;
-    private Date fechaInicio;
-    private Date fechaFin;
+    private LocalDateTime fechaInicio;
+    private LocalDateTime fechaFin;
 }

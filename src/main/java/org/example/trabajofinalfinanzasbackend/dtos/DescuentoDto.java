@@ -5,8 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -14,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class DescuentoDto {
     private Integer id;
-    private Date fecha;
+    private LocalDateTime fecha;
     private Integer idComision;
     private Integer idTasaNominal;
     private Integer idTasaEfectiva;

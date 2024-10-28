@@ -5,9 +5,7 @@ import org.example.trabajofinalfinanzasbackend.model.TceaOperacion;
 import org.example.trabajofinalfinanzasbackend.repositories.TceaOperacionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -18,7 +16,7 @@ public class TceaOperacionService {
     public String IngresarTceaOperacion(int DiasOperacion,double MontoTotal, OperacionFactoring operacionFactoring) {
         TceaOperacion tceaOperacion = new TceaOperacion();
         tceaOperacion.setTcea(calcularTceaOperacion(DiasOperacion,operacionFactoring.getMontoPago(),MontoTotal));
-        tceaOperacion.setFecha(new Date());
+        tceaOperacion.setFecha(LocalDateTime.now());
         tceaOperacion.setTceaOperacionFactoring(operacionFactoring);
         tceaOperacionRepository.save(tceaOperacion);
         return "la tcea se agrego correctmente";

@@ -6,8 +6,6 @@ import org.example.trabajofinalfinanzasbackend.servicesinterfaces.TceaOperacionS
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,7 +16,7 @@ public class TceaOperacionController {
     @Autowired
     private TceaOperacionService tceaOperacionService;
 
-    @GetMapping("/usuario/listar")
+    @GetMapping("/usuario/listar/{ruc}")
     public List<TceaOperacionDto> listarTceaOperacion(@RequestParam String ruc) {
         ModelMapper modelMapper = new ModelMapper();
         List<TceaOperacion> tceaOperacions=tceaOperacionService.listarTceaOperacionUsuario(ruc);

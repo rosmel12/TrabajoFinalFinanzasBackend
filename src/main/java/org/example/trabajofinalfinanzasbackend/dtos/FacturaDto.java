@@ -5,8 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -18,8 +17,8 @@ public class FacturaDto {
     private double montoTotal;
     private double montoTotalIgv;
     private String moneda;
-    private Date fechaEmision;
-    private Date fechaVencimiento;
+    private LocalDate fechaEmision;
+    private LocalDate fechaVencimiento;
     private String rucClienteProveedor;
     private String rucClienteDeudor;
 }

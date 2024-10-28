@@ -6,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -35,7 +34,7 @@ private TasaNominal tasaNominal=null;
 private TasaEfectiva tasaEfectiva=null;
 
 ///insertar operacion factoring
-public String insertarOperacion() {
+public Integer insertarOperacion() {
     if (this.factura!=null && this.descuento!=null) {
         calcularDias();
         if (tasaEfectiva != null) {
@@ -44,7 +43,7 @@ public String insertarOperacion() {
             convertirTasaNominalEfectiva();
         }
         OperacionFactoring operacionFactoring = new OperacionFactoring();
-        operacionFactoring.setFechaOperacion(new Date());
+        operacionFactoring.setFechaOperacion(LocalDateTime.now());
         operacionFactoring.setTasaInteresAplicada(this.tep);
         operacionFactoring.setMontoPago(calcularMontoDescuentoPago());
         operacionFactoring.setMontoDescuento(this.montoDescuento);
@@ -58,10 +57,10 @@ public String insertarOperacion() {
         notificacionClienteService.enviarNotificacionCliente(operacionFactoring);
         ///despues de realizado la operacion volvemos null a factura, descuento, comision, tasaNominal, tasaEfectiva para su uso en futuras operaciones
         this.factura=null; this.descuento=null; this.comision=null; this.tasaNominal=null; this.tasaEfectiva=null;
-        return "Se ingreso correctamente la operacion";
+        return operacionFactoring.getId();
     }
     else {
-        return "no se puedo crear ninguna operacion";
+        return null;
     }
 }
 
@@ -69,6 +68,7 @@ public String insertarOperacion() {
 public void recepcionarFactura(Factura factura) {
     this.factura=factura;
 }
+
 ///recepcionamos el descuento creado al instante
 public void recepcionarDescuento(Descuento descuento) {
     this.descuento=descuento;
@@ -80,8 +80,8 @@ public void recepcionarDescuento(Descuento descuento) {
 ///Calculo de dias Factura
 private void calcularDias() {
 /// Convertimos las fechas de Date a LocalDate
-LocalDate fechaInicio = this.factura.getFechaEmision().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-LocalDate fechaFin = this.factura.getFechaVencimiento().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+LocalDate fechaInicio = this.factura.getFechaEmision();
+LocalDate fechaFin =this.factura.getFechaVencimiento();
 /// Calculamos la diferencia en días
 this.diasFactura =(int) ChronoUnit.DAYS.between(fechaInicio, fechaFin);
 }

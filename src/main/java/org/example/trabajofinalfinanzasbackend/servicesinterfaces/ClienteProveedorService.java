@@ -27,9 +27,10 @@ public class ClienteProveedorService {
         return "existe un cliente con ese usuario";
     }
 
-    public ClienteProveedor clientePorUsuario(Integer idUsuario) {
-        return clienteProveedorRepository.findClienteProveedorByUserClienteId(idUsuario);
+    public ClienteProveedor clientePorUsuario(String username) {
+        return clienteProveedorRepository.findClienteProveedorByUserCliente_Username(username);
     }
+
 
 
 }

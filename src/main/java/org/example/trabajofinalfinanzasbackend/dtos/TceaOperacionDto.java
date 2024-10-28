@@ -4,8 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -14,5 +13,5 @@ import java.util.Date;
 public class TceaOperacionDto {
     private Integer id;
     private double tcea;
-    private Date fecha;
+    private LocalDateTime fecha;
 }

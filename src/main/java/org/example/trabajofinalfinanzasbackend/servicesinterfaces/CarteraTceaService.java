@@ -7,9 +7,9 @@ import org.example.trabajofinalfinanzasbackend.repositories.ClienteProveedorRepo
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -28,13 +28,13 @@ public class CarteraTceaService {
             CarteraTcea carteraTcea = new CarteraTcea();
             ClienteProveedor proveedor = clienteProveedorRepository.findById(ruc).orElse(null);
             carteraTcea.setTcea(tir);
-            carteraTcea.setFecha(new Date());
+            carteraTcea.setFecha(LocalDateTime.now());
             carteraTcea.setMonto(calcularInversion(flujos));
             carteraTcea.setProveedorCartera(proveedor);
             carteraTceaRepository.save(carteraTcea);
             //return "se una nueva cartera de tcea del dia";
         }else {
-            tceadia.setFecha(new Date());
+            tceadia.setFecha(LocalDateTime.now());
             tceadia.setMonto(calcularInversion(flujos));
             tceadia.setTcea(tir);
             carteraTceaRepository.save(tceadia);
@@ -78,18 +78,18 @@ public class CarteraTceaService {
     private double calcularVAN( List<Object[]> flujos , double inversion, double tir) {
         double van=-inversion;
         for (Object[] flujo : flujos) {
-            Date  fechaVencimiento = (Date) flujo[0];
+             LocalDate fechaVencimiento = (LocalDate) flujo[0];
             int dias= calcularDias(fechaVencimiento);
             double flujoPago= (double) flujo[3];
-            van += flujoPago / Math.pow((1 + tir), (dias / 365.0));
+            van += flujoPago / Math.pow((1 + tir), (dias / 360.0));
         }
         return van;
     }
 
     ///Calculo de dias Factura
-    private int calcularDias(Date fechaFin) {
+    private int calcularDias(LocalDate fechaFin) {
         LocalDate fechaInicio = LocalDate.now();
-        LocalDate fechaFinConvertido= fechaFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate fechaFinConvertido= fechaFin;
         // Calculamos la diferencia en días
         return (int) ChronoUnit.DAYS.between(fechaInicio, fechaFinConvertido);
     }
