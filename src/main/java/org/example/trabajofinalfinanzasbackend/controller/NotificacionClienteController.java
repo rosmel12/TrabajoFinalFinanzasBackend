@@ -17,8 +17,8 @@ public class NotificacionClienteController {
     @Autowired
     private NotificacionClienteService notificacionClienteService;
 
-    @GetMapping("/usuario/listar")
-    public List<NotificacionClienteDto> listarNotificacionCliente(@RequestParam String ruc) {
+    @GetMapping("/usuario/listar/{ruc}")
+    public List<NotificacionClienteDto> listarNotificacionCliente(@PathVariable String ruc) {
         ModelMapper modelMapper = new ModelMapper();
         List<NotificacionCliente> notificacionCliente = notificacionClienteService.listarNotificacionCliente(ruc);
         return Arrays.asList(modelMapper.map(notificacionCliente, NotificacionClienteDto[].class));

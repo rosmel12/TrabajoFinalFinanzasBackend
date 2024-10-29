@@ -29,10 +29,10 @@ public class DescuentoController {
 
     }
 
-    @GetMapping("/usuario/listar")
-    public List<DescuentoDto> listarDescuento(){
+    @GetMapping("/usuario/listar/{ruc}")
+    public List<DescuentoDto> listarDescuento(@PathVariable String ruc) {
         ModelMapper modelMapper = new ModelMapper();
-        List<Descuento> descuentos = descuentoService.listarDescuentos();
+        List<Descuento> descuentos = descuentoService.listarDescuentos(ruc);
         return Arrays.asList(modelMapper.map(descuentos, DescuentoDto[].class));
     }
 }

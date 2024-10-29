@@ -57,8 +57,8 @@ public class DescuentoService {
         return null;
     }
 
-    public List<Descuento> listarDescuentos() {
-        return descuentoRepository.findAll();
+    public List<Descuento> listarDescuentos(String ruc) {
+        return descuentoRepository.findByDescuento(ruc);
     }
 
 }
