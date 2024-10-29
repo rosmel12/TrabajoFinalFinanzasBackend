@@ -61,7 +61,7 @@ public class WebSecurityConfig {
                                 .requestMatchers("/quma/**").permitAll()
                                 //.requestMatchers("/quma/login","/quma/register").permitAll()
                                 //.requestMatchers("/quma/*/usuario/**").hasAuthority("CLIENTE")
-                                .anyRequest().authenticated()
+                                //.anyRequest().authenticated()
                 ).exceptionHandling(authentication ->
                         authentication.authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 )

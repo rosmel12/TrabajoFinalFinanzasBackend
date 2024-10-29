@@ -29,7 +29,7 @@ public class DescuentoService {
     @Autowired
     private OperacionFactoringService operacionFactoringService;
 
-    public String insertDescuento(DescuentoDto descuentoDto, Descuento descuento) {
+    public Integer insertDescuento(DescuentoDto descuentoDto, Descuento descuento) {
         Comision comision =comisionRepository.findById(descuentoDto.getIdComision()).orElse(null) ;
         TasaNominal tasaNominal=tasaNominalRepository.findById(descuentoDto.getIdTasaNominal()).orElse(null) ;
         TasaEfectiva tasaEfectiva=tasaEfectivaRepository.findById(descuentoDto.getIdTasaEfectiva()).orElse(null);
@@ -38,7 +38,7 @@ public class DescuentoService {
         if(comision !=null){
            descuento.setComisionDescuento(comision);
        }else{
-           return "no se agrego comision";
+           return null;
        }
        //verificar una tasa
        if(tasaNominal!=null && tasaEfectiva==null) {
@@ -46,17 +46,15 @@ public class DescuentoService {
             descuento.setFecha(LocalDateTime.now());
             descuento.setTasaEfectivaDescuento(null);
            descuento= descuentoRepository.save(descuento);
-           operacionFactoringService.recepcionarDescuento(descuento);
-           return "descuento agregado con tasa nominal";
+           return descuento.getId();
        }else if(  tasaEfectiva !=null && tasaNominal==null) {
             descuento.setTasaEfectivaDescuento(tasaEfectiva);
             descuento.setTasaNominalDescuento(null);
            descuento.setFecha(LocalDateTime.now());
            descuento= descuentoRepository.save(descuento);
-           operacionFactoringService.recepcionarDescuento(descuento);
-           return "descuento agregado con tasa efectiva";
+           return descuento.getId();
        }
-        return "no se agrego descuento";
+        return null;
     }
 
     public List<Descuento> listarDescuentos() {

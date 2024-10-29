@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -20,7 +19,9 @@ public class CarteraTceaService {
     private ClienteProveedorRepository clienteProveedorRepository;
 
     public String insertarCarteraTcea(String ruc) {
+
         List<Object[]> flujos =carteraTceaRepository.flujos(ruc);
+        if (!flujos.isEmpty()) {
         double tir = calcularTIR(flujos);
         CarteraTcea tceadia= carteraTceaRepository.carteraTceaDia(ruc);
         ///verificamos la existencia de la cartera de un dia
@@ -40,7 +41,8 @@ public class CarteraTceaService {
             carteraTceaRepository.save(tceadia);
             //return "se modifico la cartera existente del dia";
         }
-        return "TIR: " + tir;
+        return "TIR: " + tir;}
+        return "no se puedo encontrar flujos";
     }
     
     ///caculamos el tir mediante el algoritmo binomial
@@ -78,10 +80,11 @@ public class CarteraTceaService {
     private double calcularVAN( List<Object[]> flujos , double inversion, double tir) {
         double van=-inversion;
         for (Object[] flujo : flujos) {
-             LocalDate fechaVencimiento = (LocalDate) flujo[0];
+            java.sql.Date sqlDate = (java.sql.Date) flujo[0];
+            LocalDate fechaVencimiento = sqlDate.toLocalDate();
             int dias= calcularDias(fechaVencimiento);
             double flujoPago= (double) flujo[3];
-            van += flujoPago / Math.pow((1 + tir), (dias / 360.0));
+            van += flujoPago / Math.pow((1 + tir), (dias / 365.0));
         }
         return van;
     }
@@ -89,9 +92,8 @@ public class CarteraTceaService {
     ///Calculo de dias Factura
     private int calcularDias(LocalDate fechaFin) {
         LocalDate fechaInicio = LocalDate.now();
-        LocalDate fechaFinConvertido= fechaFin;
         // Calculamos la diferencia en días
-        return (int) ChronoUnit.DAYS.between(fechaInicio, fechaFinConvertido);
+        return (int) ChronoUnit.DAYS.between(fechaInicio, fechaFin);
     }
 
     ///calcular inversion que es la suma de los montos sin igv de la factura

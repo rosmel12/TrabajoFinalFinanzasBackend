@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,25 +22,47 @@ public class FacturaService {
     private ClienteDeudorRepository deudorRepository;
     @Autowired
     private ClienteProveedorRepository proveedorRepository;
-    @Autowired
-    private OperacionFactoringService operacionFactoringService;
 
-    public String insertarFactura(FacturaDto facturaDto, Factura factura) {
+    public Integer insertarFactura(FacturaDto facturaDto, Factura factura) {
         ClienteProveedor clienteProveedor = proveedorRepository.findById(facturaDto.getRucClienteProveedor()).orElse(null);
         ClienteDeudor clienteDeudor = deudorRepository.findById(facturaDto.getRucClienteDeudor()).orElse(null);
         if (clienteDeudor != null && clienteProveedor != null) {
             factura.setDeudorFactura(clienteDeudor);
             factura.setProveedorFactura(clienteProveedor);
             factura.setMontoTotal(0.82*factura.getMontoTotalIgv());
-            factura =facturaRepository.save(factura);
-            operacionFactoringService.recepcionarFactura(factura);
-            return "Factura agregada con exito";
+            factura=facturaRepository.save(factura);
+            return factura.getId();
         }
-        return "no creo la factura";
+        return null;
     }
 
-    public List<Factura> listarFacturasCliente(String ruc) {
-        return facturaRepository.listarFacturasClienteRuc(ruc);
+    public List<FacturaDto> listarFacturasCliente(String ruc) {
+        List<Factura> facturasAux=facturaRepository.findFacturasByRuc(ruc);
+        List<FacturaDto> facturas=new ArrayList<>();
+        if(facturasAux!=null){
+            for(Factura facturaAux:facturasAux){
+                FacturaDto facturaDtoAux=new FacturaDto(facturaAux.getId(),facturaAux.getNumero(),
+                        facturaAux.getMontoTotal(),facturaAux.getMontoTotalIgv(),facturaAux.getMoneda(),
+                        facturaAux.getFechaEmision(),facturaAux.getFechaVencimiento(),facturaAux.getProveedorFactura().getRuc(),
+                        facturaAux.getDeudorFactura().getRuc());
+                facturas.add(facturaDtoAux);
+            }
+            return facturas;
+        }
+        return null;
+    }
+
+    public FacturaDto facturabyid(Integer id) {
+        Factura factura = facturaRepository.findById(id).orElse(null);
+        if (factura != null) {
+            return new FacturaDto(factura.getId(),factura.getNumero(),factura.getMontoTotal(),factura.getMontoTotalIgv(),factura.getMoneda(),factura.getFechaEmision(),
+                    factura.getFechaVencimiento(),factura.getProveedorFactura().getRuc(),factura.getDeudorFactura().getRuc());
+        }
+        return null;
+    }
+
+    public List<Factura> listarFacturas() {
+        return facturaRepository.findAll();
     }
 
 

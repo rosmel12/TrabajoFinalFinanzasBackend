@@ -1,5 +1,6 @@
 package org.example.trabajofinalfinanzasbackend.controller;
 import org.example.trabajofinalfinanzasbackend.dtos.OperacionFactoringDto;
+import org.example.trabajofinalfinanzasbackend.dtos.OperacionFactoringInsertarDto;
 import org.example.trabajofinalfinanzasbackend.model.OperacionFactoring;
 import org.example.trabajofinalfinanzasbackend.servicesinterfaces.OperacionFactoringService;
 import org.modelmapper.ModelMapper;
@@ -16,15 +17,15 @@ public class OperacionFactoringController {
     @Autowired
     private OperacionFactoringService operacionFactoringService;
 
-    @GetMapping("/usuario/insertar")
-    public Integer insertarOperacion() {
-        return  operacionFactoringService.insertarOperacion();
+    @PostMapping("/usuario/insertar")
+    public Integer insertarOperacion(@RequestBody OperacionFactoringInsertarDto operacionFactoringInsertarDto) {
+        return  operacionFactoringService.insertarOperacion(operacionFactoringInsertarDto);
     }
 
-    @GetMapping("/usuario/listar")
-    public OperacionFactoringDto listarOperacionFactura(@RequestParam Integer idFactura) {
+    @GetMapping("/usuario/facturaId/{id}")
+    public OperacionFactoringDto listarOperacionFactura(@PathVariable Integer id) {
      ModelMapper modelMapper = new ModelMapper();
-     OperacionFactoring operacionFactoring=operacionFactoringService.listaroperacionPorFactura(idFactura);
+     OperacionFactoring operacionFactoring=operacionFactoringService.listaroperacionPorFactura(id);
      return modelMapper.map(operacionFactoring, OperacionFactoringDto.class);
     }
 

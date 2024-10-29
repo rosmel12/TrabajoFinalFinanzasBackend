@@ -27,7 +27,6 @@ public class TasaEfectivaService {
                 tasaEfectivas.add(tasaEfectiva);
             }
         }
-
         return tasaEfectivas;
     }
 }

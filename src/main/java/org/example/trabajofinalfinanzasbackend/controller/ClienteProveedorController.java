@@ -35,5 +35,4 @@ public class ClienteProveedorController {
         ClienteProveedor clienteProveedor=clienteProveedorService.clientePorUsuario(username);
         return modelMapper.map(clienteProveedor, ClienteProveedorDto.class);
     }
-
 }

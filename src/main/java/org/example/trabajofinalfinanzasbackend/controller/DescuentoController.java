@@ -18,7 +18,7 @@ public class DescuentoController {
     private DescuentoService descuentoService;
 
     @PostMapping("/usuario/insertar")
-    public String createDescuento(@RequestBody DescuentoDto descuentoDto) throws Exception {
+    public Integer createDescuento(@RequestBody DescuentoDto descuentoDto) throws Exception {
         try {
             ModelMapper modelMapper = new ModelMapper();
             Descuento descuento = modelMapper.map(descuentoDto, Descuento.class);

@@ -10,8 +10,8 @@ import java.util.List;
 
 @Repository
 public interface FacturaRepository extends JpaRepository<Factura, Integer> {
-@Query(value = "select fc.*\n" +
-        "from factura fc\n" +
-        "where fc.ruc_cliente_proveedor=:ruc",nativeQuery = true)
- List<Factura> listarFacturasClienteRuc(@Param("ruc") String ruc);
+ @Query(value = "select *\n" +
+         "from factura fc\n" +
+         "where fc.ruc_cliente_proveedor=:ruc",nativeQuery = true)
+ List<Factura> findFacturasByRuc(@Param("ruc") String ruc);
 }

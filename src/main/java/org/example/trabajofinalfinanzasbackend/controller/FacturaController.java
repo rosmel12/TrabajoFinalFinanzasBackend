@@ -1,14 +1,10 @@
 package org.example.trabajofinalfinanzasbackend.controller;
-
 import org.example.trabajofinalfinanzasbackend.dtos.FacturaDto;
-import org.example.trabajofinalfinanzasbackend.dtos.TasaNominalDto;
 import org.example.trabajofinalfinanzasbackend.model.Factura;
 import org.example.trabajofinalfinanzasbackend.servicesinterfaces.FacturaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -19,7 +15,7 @@ public class FacturaController {
     private FacturaService facturaService;
 
     @PostMapping("/usuario/insertar")
-    public String createFactura(@RequestBody FacturaDto facturaDto) throws Exception {
+    public Integer createFactura(@RequestBody FacturaDto facturaDto) throws Exception {
         try {
             ModelMapper modelMapper = new ModelMapper();
             Factura factura = modelMapper.map(facturaDto, Factura.class);
@@ -28,16 +24,12 @@ public class FacturaController {
             throw new Exception("Error al insertar factura");
         }
     }
-
     @GetMapping("/usuario/listar/{ruc}")
-    public List<FacturaDto> listarFacturaCliente(@PathVariable String ruc) throws Exception {
-        try {
-            ModelMapper modelMapper = new ModelMapper();
-            List<Factura> facturas = facturaService.listarFacturasCliente("1");
-            return Arrays.asList(modelMapper.map(facturas, FacturaDto[].class));
-        } catch(Exception e) {
-            throw new Exception("Error al insertar factura");
-        }
-    }
+    public List<FacturaDto> listarFacturasProveedor(@PathVariable String ruc){
+    return facturaService.listarFacturasCliente(ruc);}
 
+    @GetMapping("/usuario/facturaid/{id}")
+    public FacturaDto facturabyid(@PathVariable Integer id)  {
+        return facturaService.facturabyid(id);
+    }
 }
