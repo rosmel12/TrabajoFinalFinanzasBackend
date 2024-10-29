@@ -14,5 +14,4 @@ public class CarteraTceaDto {
     private Integer id;
     private double tcea;
     private LocalDateTime fecha;
-    private String rucCliente;
 }

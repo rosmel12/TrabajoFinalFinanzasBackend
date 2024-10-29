@@ -20,10 +20,11 @@ public void enviarNotificacionCliente(OperacionFactoring operacionFactoring) {
  notificacionCliente.setNotificacionOperacionFactoring(operacionFactoring);
  notificacionClienteRepository.save(notificacionCliente);
     }
-public void modificarEstadoNotificacionCliente( Integer id) {
+public String modificarEstadoNotificacionCliente( Integer id) {
   NotificacionCliente notificacionCliente = notificacionClienteRepository.findById(id).get();
   notificacionCliente.setLeido(true);
   notificacionClienteRepository.save(notificacionCliente);
+  return "mensaje modificado";
 }
 
 public List<NotificacionCliente> listarNotificacionCliente(String ruc) {

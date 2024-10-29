@@ -23,5 +23,9 @@ public class NotificacionClienteController {
         List<NotificacionCliente> notificacionCliente = notificacionClienteService.listarNotificacionCliente(ruc);
         return Arrays.asList(modelMapper.map(notificacionCliente, NotificacionClienteDto[].class));
     }
+    @PutMapping("/usuario/modificar/{id}")
+    public String modificarestado(@PathVariable Integer id) {
+        return notificacionClienteService.modificarEstadoNotificacionCliente(id);
+    }
 
 }

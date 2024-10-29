@@ -17,4 +17,10 @@ public interface TceaOperacionRepository extends JpaRepository<TceaOperacion, In
             "where fc.ruc_cliente_proveedor=:ruc", nativeQuery = true)
     List<TceaOperacion> findAllByRucClienteProveedor(@Param("ruc") String ruc);
 
+    @Query(value="select tc.*\n" +
+            "from tceaoperacion tc\n" +
+            "join operacionfactoring ofc on ofc.id=tc.id_operacion_factoring\n" +
+            "join factura f on f.id=ofc.id_factura\n" +
+            "where f.id=:id",nativeQuery = true)
+    TceaOperacion findByRucClienteProveedor(@Param("id") Integer id);
 }

@@ -63,7 +63,7 @@ public Integer insertarOperacion(OperacionFactoringInsertarDto operacionFactorin
         ///creamos la notificacion de la operacion
         notificacionClienteService.enviarNotificacionCliente(operacionFactoring);
         ///creamos la carteradel dia o actualizamos
-        ///carteraTceaService.insertarCarteraTcea(this.factura.getProveedorFactura().getRuc());
+        carteraTceaService.insertarCarteraTcea(factura.getProveedorFactura().getRuc());
         ///despues de realizado la operacion volvemos null a factura, descuento, comision, tasaNominal, tasaEfectiva para su uso en futuras operaciones
         return operacionFactoring.getId();
     }

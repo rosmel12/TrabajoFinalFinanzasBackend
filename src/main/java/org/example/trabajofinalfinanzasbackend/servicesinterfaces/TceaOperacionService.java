@@ -29,4 +29,8 @@ public class TceaOperacionService {
     public List<TceaOperacion> listarTceaOperacionUsuario(String ruc) {
        return tceaOperacionRepository.findAllByRucClienteProveedor(ruc);
     }
+
+    public TceaOperacion buscarTceaOperacion(Integer id) {
+        return tceaOperacionRepository.findByRucClienteProveedor(id);
+    }
 }

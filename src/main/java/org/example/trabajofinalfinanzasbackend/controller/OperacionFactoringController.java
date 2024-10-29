@@ -29,8 +29,8 @@ public class OperacionFactoringController {
      return modelMapper.map(operacionFactoring, OperacionFactoringDto.class);
     }
 
-    @GetMapping("/usuario/operacionesusuario")
-    public List<OperacionFactoringDto> listarOperacionesUsuario(@RequestParam String ruc){
+    @GetMapping("/usuario/operacionesusuario/{ruc}")
+    public List<OperacionFactoringDto> listarOperacionesUsuario(@PathVariable String ruc){
         ModelMapper modelMapper = new ModelMapper();
         List<OperacionFactoring> operacionFactorings=operacionFactoringService.listaroperacionPorCliente(ruc);
         return Arrays.asList(modelMapper.map(operacionFactorings, OperacionFactoringDto[].class));
