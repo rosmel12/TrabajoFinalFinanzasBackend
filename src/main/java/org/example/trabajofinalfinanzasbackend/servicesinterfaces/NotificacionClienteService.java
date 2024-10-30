@@ -21,10 +21,13 @@ public void enviarNotificacionCliente(OperacionFactoring operacionFactoring) {
  notificacionClienteRepository.save(notificacionCliente);
     }
 public String modificarEstadoNotificacionCliente( Integer id) {
-  NotificacionCliente notificacionCliente = notificacionClienteRepository.findById(id).get();
-  notificacionCliente.setLeido(true);
-  notificacionClienteRepository.save(notificacionCliente);
-  return "mensaje modificado";
+  NotificacionCliente notificacionCliente = notificacionClienteRepository.findById(id).orElse(null);
+  if(notificacionCliente != null) {
+      notificacionCliente.setLeido(true);
+      notificacionClienteRepository.save(notificacionCliente);
+      return "mensaje modificado";
+  }
+  return "mensaje no encontrado";
 }
 
 public List<NotificacionCliente> listarNotificacionCliente(String ruc) {
