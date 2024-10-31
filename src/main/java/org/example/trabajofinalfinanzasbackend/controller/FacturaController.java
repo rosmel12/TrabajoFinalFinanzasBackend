@@ -32,4 +32,8 @@ public class FacturaController {
     public FacturaDto facturabyid(@PathVariable Integer id)  {
         return facturaService.facturabyid(id);
     }
+    @GetMapping("/usuario/facturarecientes/{ruc}")
+    public List<FacturaDto> facturaRecientes(@PathVariable String ruc)  {
+        return facturaService.listarFacturasRecientes(ruc);
+    }
 }

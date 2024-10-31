@@ -31,6 +31,6 @@ public class TceaOperacionService {
     }
 
     public TceaOperacion buscarTceaOperacion(Integer id) {
-        return tceaOperacionRepository.findByRucClienteProveedor(id);
+        return tceaOperacionRepository.findbyIdOperacionFactoring(id);
     }
 }

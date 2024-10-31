@@ -61,8 +61,20 @@ public class FacturaService {
         return null;
     }
 
-    public List<Factura> listarFacturas() {
-        return facturaRepository.findAll();
+    public List<FacturaDto> listarFacturasRecientes(String ruc) {
+        List<Factura> facturasAux =facturaRepository.findAllFacturasRecientes(ruc);
+        List<FacturaDto> facturas=new ArrayList<>();
+        if(facturasAux!=null){
+            for(Factura facturaAux:facturasAux){
+                FacturaDto facturaDtoAux=new FacturaDto(facturaAux.getId(),facturaAux.getNumero(),
+                        facturaAux.getMontoTotal(),facturaAux.getMontoTotalIgv(),facturaAux.getMoneda(),
+                        facturaAux.getFechaEmision(),facturaAux.getFechaVencimiento(),facturaAux.getProveedorFactura().getRuc(),
+                        facturaAux.getDeudorFactura().getRuc());
+                facturas.add(facturaDtoAux);
+            }
+            return facturas;
+        }
+        return null;
     }
 
 

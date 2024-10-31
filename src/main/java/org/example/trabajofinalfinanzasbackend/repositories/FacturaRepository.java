@@ -14,4 +14,11 @@ public interface FacturaRepository extends JpaRepository<Factura, Integer> {
          "from factura fc\n" +
          "where fc.ruc_cliente_proveedor=:ruc",nativeQuery = true)
  List<Factura> findFacturasByRuc(@Param("ruc") String ruc);
+
+ @Query(value = "select *\n" +
+         "from factura fc\n" +
+         "where fc.ruc_cliente_proveedor =:ruc\n" +
+         "order by fc.id desc\n" +
+         "limit 6;", nativeQuery = true)
+ List<Factura> findAllFacturasRecientes(@Param("ruc") String ruc);
 }

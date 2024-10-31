@@ -22,7 +22,7 @@ public class TceaOperacionController {
         List<TceaOperacion> tceaOperacions=tceaOperacionService.listarTceaOperacionUsuario(ruc);
         return Arrays.asList(modelMapper.map(tceaOperacions, TceaOperacionDto[].class));
     }
-    @GetMapping("/usuario/tceafactura/{id}")
+    @GetMapping("/usuario/tceaoperacionfactoring/{id}")
     public TceaOperacionDto getTceaOperacion(@PathVariable Integer id) {
         ModelMapper modelMapper = new ModelMapper();
         TceaOperacion tceaOperacion= tceaOperacionService.buscarTceaOperacion(id);
