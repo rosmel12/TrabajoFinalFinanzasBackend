@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PeriodoRepository extends JpaRepository<Periodo, Integer> {
-
     Periodo findByPlazoTasa(String plazo);
 }
