@@ -15,7 +15,8 @@ private NotificacionClienteRepository notificacionClienteRepository;
 
 public void enviarNotificacionCliente(OperacionFactoring operacionFactoring) {
  NotificacionCliente notificacionCliente = new NotificacionCliente();
- notificacionCliente.setMensaje("estimado cliente su operacion fue realizada");
+ notificacionCliente.setMensaje("Estimado cliente su operacion " +
+         "fue realizada correspondiente a la factura con Numero " +operacionFactoring.getFacturaOperacion().getNumero());
  notificacionCliente.setLeido(false);
  notificacionCliente.setNotificacionOperacionFactoring(operacionFactoring);
  notificacionClienteRepository.save(notificacionCliente);

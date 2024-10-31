@@ -24,9 +24,8 @@ public interface CarteraTceaRepository extends JpaRepository<CarteraTcea, Intege
 
     @Query(value = "select *\n" +
             "from carteratcea ct\n" +
-            "where ct.ruc_cliente=:ruc",nativeQuery = true)
+            "where ct.ruc_cliente=:ruc\n"+
+            "order by ct.id desc",nativeQuery = true)
     List<CarteraTcea> findByRuc(@Param("ruc")String ruc);
-
-    List<CarteraTcea> findCarteraTceasByProveedorCarteraRuc(String ruc);
 
 }

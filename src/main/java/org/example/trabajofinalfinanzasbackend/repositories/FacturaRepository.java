@@ -12,7 +12,8 @@ import java.util.List;
 public interface FacturaRepository extends JpaRepository<Factura, Integer> {
  @Query(value = "select *\n" +
          "from factura fc\n" +
-         "where fc.ruc_cliente_proveedor=:ruc",nativeQuery = true)
+         "where fc.ruc_cliente_proveedor=:ruc\n"+
+         "order by fc.id desc",nativeQuery = true)
  List<Factura> findFacturasByRuc(@Param("ruc") String ruc);
 
  @Query(value = "select *\n" +

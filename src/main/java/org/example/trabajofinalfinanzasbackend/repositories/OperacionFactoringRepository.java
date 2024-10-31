@@ -20,7 +20,8 @@ OperacionFactoring operacionFactura(@Param("id")Integer id);
 @Query(value = "select ofc.*\n" +
         "from factura fc\n" +
         "join operacionfactoring ofc on ofc.id_factura=fc.id\n" +
-        "where fc.ruc_cliente_proveedor=:ruc;",nativeQuery = true)
+        "where fc.ruc_cliente_proveedor=:ruc\n"+
+        "order by ofc.id desc",nativeQuery = true)
 List<OperacionFactoring> operacionesCliente(@Param("ruc") String ruc);
 
 }
