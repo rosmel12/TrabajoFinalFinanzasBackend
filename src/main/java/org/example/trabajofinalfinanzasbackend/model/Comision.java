@@ -23,6 +23,9 @@ public class Comision {
     @Column(name = "retencion", nullable = false)
     private double retencion;
 
+    @Column(name = "moneda", nullable = false, unique = true)
+    private String moneda;
+
     //relacion descuento
     @OneToMany(mappedBy = "comisionDescuento",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Descuento> descuentos;

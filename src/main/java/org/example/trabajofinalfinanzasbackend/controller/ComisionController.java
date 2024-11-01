@@ -26,4 +26,9 @@ public class ComisionController {
         }
 
     }
+
+    @GetMapping("/usuario/id/{moneda}")
+    public Integer comisionId(@PathVariable String moneda){
+        return comisionService.comisionId(moneda);
+    }
 }

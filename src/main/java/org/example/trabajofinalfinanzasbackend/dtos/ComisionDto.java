@@ -14,4 +14,5 @@ public class ComisionDto {
     private double seguro;
     private double envio;
     private double retencion;
+    private String moneda;
 }

@@ -3,9 +3,7 @@ package org.example.trabajofinalfinanzasbackend.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -16,8 +14,8 @@ public class Factura {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "numero", nullable = false)
-    private int numero;
+    @Column(name = "numero", nullable = false, unique = true)
+    private String numero;
 
     @Column(name = "montoTotal", nullable = false)
     private double montoTotal;

@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class FacturaDto {
     private Integer id;
-    private int numero;
+    private String numero;
     private double montoTotal;
     private double montoTotalIgv;
     private String moneda;
