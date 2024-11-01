@@ -84,7 +84,7 @@ public class CarteraTceaService {
             LocalDate fechaVencimiento = sqlDate.toLocalDate();
             int dias= calcularDias(fechaVencimiento);
             double flujoPago= (double) flujo[3];
-            van += flujoPago / Math.pow((1 + tir), (dias / 365.0));
+            van += flujoPago / Math.pow((1 + tir), (dias / 360.0));
         }
         return van;
     }
